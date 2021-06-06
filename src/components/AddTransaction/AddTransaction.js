@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-
-const AddTransaction = ({ onAddTransaction }) => {
+import React, { useState, useContext } from "react";
+import { GlobalContext } from "../../context/GlobalState";
+const AddTransaction = () => {
   const [expenseName, setExpenseName] = useState("");
   const [expense, setExpense] = useState("");
+
+  const { addTransaction } = useContext(GlobalContext);
 
   const addTransactionHandler = (e) => {
     e.preventDefault();
@@ -10,7 +12,7 @@ const AddTransaction = ({ onAddTransaction }) => {
       alert("enter proper trasaction name and expense");
       return;
     }
-    onAddTransaction({ expenseName, expense: parseInt(expense) });
+    addTransaction({ expenseName, expense: parseInt(expense) });
     setExpenseName("");
     setExpense("");
     window.scrollTo(0, 0);

@@ -1,7 +1,9 @@
-import React from "react";
-import { TRANSACTIONTYPES } from "../../../App";
-const Transaction = ({ transaction, onDeleteTrx }) => {
+import React, { useContext } from "react";
+import { GlobalContext } from "../../../context/GlobalState";
+import { TRANSACTIONTYPES } from "../../../context/GlobalState";
+const Transaction = ({ transaction }) => {
   const trxSymbol = transaction.type === TRANSACTIONTYPES.income ? "+" : "-";
+  const { deleteTransaction } = useContext(GlobalContext);
   return (
     <>
       <li className={transaction.type === "income" ? "plus" : "minus"}>
@@ -11,7 +13,7 @@ const Transaction = ({ transaction, onDeleteTrx }) => {
         </span>
         <button
           className="delete-btn"
-          onClick={onDeleteTrx.bind(null, transaction.id)}
+          onClick={deleteTransaction.bind(null, transaction.id)}
         >
           x
         </button>

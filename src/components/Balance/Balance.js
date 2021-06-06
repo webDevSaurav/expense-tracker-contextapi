@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GlobalContext, TRANSACTIONTYPES } from "../../context/GlobalState";
+const Balance = () => {
+  const { transactions } = useContext(GlobalContext);
 
-const Balance = ({ balanceObj }) => {
-  const { income, expense, balance } = balanceObj;
+  let income = 0;
+  let expense = 0;
+  let balance = 0;
+
+  transactions.map((trx) =>
+    trx.type === TRANSACTIONTYPES.income
+      ? (income += trx.value)
+      : (expense += trx.value)
+  );
+
+  balance = income + expense;
+
   return (
     <>
       <h4>Your Balance</h4>
@@ -9,7 +22,7 @@ const Balance = ({ balanceObj }) => {
       <div className="inc-exp-container">
         <div>
           <h4>Income</h4>
-          <p id="money-plus" class="money plus">
+          <p id="money-plus" className="money plus">
             +Rs {income}
           </p>
         </div>

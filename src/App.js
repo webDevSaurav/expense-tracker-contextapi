@@ -1,13 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Header from "./components/Header/Header";
 import Balance from "./components/Balance/Balance";
-import TransactionList from "./components/TransactionList/TransactionList";
+import TransactionList from "./components/TransactionList/TransactionList.jsx";
 import AddTransaction from "./components/AddTransaction/AddTransaction";
-
-export const TRANSACTIONTYPES = {
-  income: "income",
-  expense: "expense",
-};
+import { GlobalProvider, TRANSACTIONTYPES } from "./context/GlobalState";
 
 const App = () => {
   const [transactions, setTransactions] = useState([]);
@@ -54,7 +50,7 @@ const App = () => {
   }, [transactions.length, calculateBalance]);
 
   return (
-    <>
+    <GlobalProvider>
       <Header />
       <div className="container">
         <Balance balanceObj={{ income, expense, balance }} />
@@ -64,7 +60,7 @@ const App = () => {
         />
         <AddTransaction onAddTransaction={addTransaction} />
       </div>
-    </>
+    </GlobalProvider>
   );
 };
 
